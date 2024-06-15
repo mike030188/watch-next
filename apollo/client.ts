@@ -33,7 +33,7 @@ function createIsomorphicLink() {
 			operation.setContext(({ headers = {} }) => ({
 				headers: {
 					...headers,
-					...getHeaders(),
+					...getHeaders(), // token ichidan kelyapti
 				},
 			}));
 			console.warn('requesting.. ', operation);
@@ -42,7 +42,7 @@ function createIsomorphicLink() {
 
 		// @ts-ignore
 		const link = new createUploadLink({
-			uri: process.env.REACT_APP_API_GRAPHQL_URL,
+			uri: process.env.REACT_APP_API_GRAPHQL_URL, // BackEnd serverga ulaniwga harakat qilyapmiz
 		});
 
 		/* WEBSOCKET SUBSCRIPTION LINK */
@@ -87,12 +87,12 @@ function createApolloClient() {
 		ssrMode: typeof window === 'undefined',
 		link: createIsomorphicLink(),
 		cache: new InMemoryCache(),
-		resolvers: {},
+		resolvers: {}, // optional
 	});
 }
 
 export function initializeApollo(initialState = null) {
-	const _apolloClient = apolloClient ?? createApolloClient();
+	const _apolloClient = apolloClient ?? createApolloClient(); // ilgaritdan apolloClient bolsa=_apolloClientni beradi yoki new connection hosil qiladi
 	if (initialState) _apolloClient.cache.restore(initialState);
 	if (typeof window === 'undefined') return _apolloClient;
 	if (!apolloClient) apolloClient = _apolloClient;
@@ -100,11 +100,12 @@ export function initializeApollo(initialState = null) {
 	return _apolloClient;
 }
 
+/** useApollo customized hookni tawkillaymiz => _app.tsx ga export qilamiz**/
 export function useApollo(initialState: any) {
-	return useMemo(() => initializeApollo(initialState), [initialState]);
+	return useMemo(() => initializeApollo(initialState), [initialState]); // useMemo -hotirada saqlab yangisi kelsa almawtiradi
 }
 
-/**
+/** NESTAR-DEMO **
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 
 // No Subscription required for develop process
