@@ -1,3 +1,7 @@
+/** Reactive variable hosil qilamiz 
+  - burakdagi context bn bir xil mantiq
+  - Auth member datani userVar orqali hohlagan joyda iwlatiwimiz mumkin 
+  **/
 import { makeVar } from '@apollo/client';
 
 import { CustomJwtPayload } from '../libs/types/customJwtPayload';
