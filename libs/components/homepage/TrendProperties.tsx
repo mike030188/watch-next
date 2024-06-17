@@ -28,7 +28,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 		error: getPropertiesError, // data kiriwida error bo`lsa => 41-satr handle | data kirsa "onCompleted" iwga tuwadi
 		refetch: getPropertiesRefetch,
 	} = useQuery(GET_PROPERTIES, {
-		fetchPolicy: 'cache-and-network',
+		fetchPolicy: 'cache-and-network', // data yangi bolsa =>cacheni ham viewni ham yangiledi
 		variables: { input: initialInput }, // POSTMANdagi input
 		notifyOnNetworkStatusChange: true, // by default: false. datalar qayta update bo`lganda iwga tuwadi
 		onCompleted: (data: T) => {
