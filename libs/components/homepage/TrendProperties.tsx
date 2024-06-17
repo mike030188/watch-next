@@ -8,9 +8,13 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 import { Property } from '../../types/property/property';
 import { PropertiesInquiry } from '../../types/property/property.input';
 import TrendPropertyCard from './TrendPropertyCard';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_PROPERTIES } from '../../../apollo/user/query';
 import { T } from '../../types/common';
+import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
+import { Message } from '../../enums/common.enum';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import { likeTargetPropertyHandler } from '../../utils';
 
 interface TrendPropertiesProps {
 	initialInput: PropertiesInquiry;
@@ -22,11 +26,13 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 	const [trendProperties, setTrendProperties] = useState<Property[]>([]);
 
 	/** APOLLO REQUESTS **/
+	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+
 	const {
 		loading: getPropertiesLoading, // Backendan data kelayotganda Loading... animation korsatadi
 		data: getPropertiesData, // datalarni cache saqlayapmiz
 		error: getPropertiesError, // data kiriwida error bo`lsa => 41-satr handle | data kirsa "onCompleted" iwga tuwadi
-		refetch: getPropertiesRefetch,
+		refetch: getPropertiesRefetch, // ohirgi ma`lumotni Backenddan talab qivoliw
 	} = useQuery(GET_PROPERTIES, {
 		fetchPolicy: 'cache-and-network', // data yangi bolsa =>cacheni ham viewni ham yangiledi
 		variables: { input: initialInput }, // POSTMANdagi input
@@ -36,6 +42,21 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 		},
 	});
 	/** HANDLERS **/
+	/**                                user->Auth bolganmi?, qaysi property_id ga like bosyapti? */
+	const likePropertyHandler = async (user: T, id: string) => {
+		try {
+			if (!id) return;
+			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED); // Auth bolganmi ?
+			//execute likeTargetproperty  Mutationni ishga tushirish
+			await likeTargetProperty({ variables: { input: id } }); // POSTMANdagi variable=> input: id
+			//execute getPropertiesRefetch
+			await getPropertiesRefetch({ input: initialInput });
+			await sweetTopSmallSuccessAlert('success', 800);
+		} catch (err: any) {
+			console.log('ERROR,likePropertyHandler:', err.message);
+			sweetMixinErrorAlert(err.message).then();
+		}
+	};
 
 	if (trendProperties) console.log('trendProperties:', trendProperties);
 	if (!trendProperties) return null;
@@ -63,7 +84,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 								{trendProperties.map((property: Property) => {
 									return (
 										<SwiperSlide key={property._id} className={'trend-property-slide'}>
-											<TrendPropertyCard property={property} />
+											{/* <TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} /> */}
 										</SwiperSlide>
 									);
 								})}
@@ -112,7 +133,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 								{trendProperties.map((property: Property) => {
 									return (
 										<SwiperSlide key={property._id} className={'trend-property-slide'}>
-											<TrendPropertyCard property={property} />
+											<TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
 										</SwiperSlide>
 									);
 								})}
