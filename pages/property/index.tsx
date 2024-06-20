@@ -11,6 +11,9 @@ import { Property } from '../../libs/types/property/property';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import { Direction } from '../../libs/enums/common.enum';
+import { GET_PROPERTIES } from '../../apollo/user/query';
+import { useQuery } from '@apollo/client';
+import { T } from '../../libs/types/common';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -32,8 +35,24 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 	const [filterSortName, setFilterSortName] = useState('New');
 
 	/** APOLLO REQUESTS **/
+	// const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
 
-	/** LIFECYCLES **/
+	const {
+		loading: getPropertiesLoading, // Backendan data kelayotganda Loading... animation korsatadi
+		data: getPropertiesData, // datalarni cache saqlayapmiz
+		error: getPropertiesError, // data kiriwida error bo`lsa => 41-satr handle | data kirsa "onCompleted" iwga tuwadi
+		refetch: getPropertiesRefetch, // ohirgi ma`lumotni Backenddan talab qivoliw
+	} = useQuery(GET_PROPERTIES, {
+		fetchPolicy: 'network-only', // Backenddan data request qiladi
+		variables: { input: searchFilter }, //
+		notifyOnNetworkStatusChange: true, // by default: false. datalar qayta update bo`lganda iwga tuwadi
+		onCompleted: (data: T) => {
+			setProperties(data?.getProperties?.list);
+			setTotal(data?.getProperties?.metaCounter[0]?.total); // metacounter: total
+		},
+	});
+
+	/** LIFECYCLES -> ComponentDidMount**/
 	useEffect(() => {
 		if (router.query.input) {
 			const inputObj = JSON.parse(router?.query?.input as string);
@@ -41,9 +60,12 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
 		}
 
 		setCurrentPage(searchFilter.page === undefined ? 1 : searchFilter.page);
-	}, [router]);
+	}, [router]); // array dependency: searchFilterni yangilanishiga sababchi
 
-	useEffect(() => {}, [searchFilter]);
+	useEffect(() => {
+		console.log('searchFilter:', searchFilter);
+		// getPropertiesRefetch({ input: searchFilter }).then(); // Backendda searchFilter qiymati uzgarganda Refetch boladi
+	}, [searchFilter]);
 
 	/** HANDLERS **/
 	const handlePaginationChange = async (event: ChangeEvent<unknown>, value: number) => {

@@ -50,7 +50,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
 			//execute likeTargetproperty  Mutationni ishga tushirish
 			await likeTargetProperty({ variables: { input: id } }); // POSTMANdagi variable=> input: id
 			//execute getPropertiesRefetch
-			await getPropertiesRefetch({ input: initialInput });
+			await getPropertiesRefetch({ input: initialInput }); // page refresh bolganda ham like turoradi
 			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
 			console.log('ERROR,likePropertyHandler:', err.message);
