@@ -11,7 +11,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
-import { useReactiveVar } from '@apollo/client';
+import { useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { Property } from '../../libs/types/property/property';
 import moment from 'moment';
@@ -27,6 +27,9 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { GET_PROPERTIES, GET_PROPERTY } from '../../apollo/user/query';
+import { T } from '../../libs/types/common';
+import { Direction } from '../../libs/enums/common.enum';
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -43,7 +46,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const [propertyId, setPropertyId] = useState<string | null>(null);
 	const [property, setProperty] = useState<Property | null>(null);
 	const [slideImage, setSlideImage] = useState<string>('');
-	const [destinationProperty, setDestinationProperty] = useState<Property[]>([]);
+	const [destinationProperties, setDestinationProperties] = useState<Property[]>([]);
 	const [commentInquiry, setCommentInquiry] = useState<CommentsInquiry>(initialComment);
 	const [propertyComments, setPropertyComments] = useState<Comment[]>([]);
 	const [commentTotal, setCommentTotal] = useState<number>(0);
@@ -54,6 +57,48 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 	});
 
 	/** APOLLO REQUESTS **/
+	const {
+		loading: getPropertyLoading, // Backendan data kelayotganda Loading... animation korsatadi
+		data: getPropertyData, // datalarni cache saqlayapmiz
+		error: getPropertyError, // data kiriwida error bo`lsa => handle | data kirsa "onCompleted" iwga tuwadi
+		refetch: getPropertyRefetch, // ohirgi ma`lumotni Backenddan talab qivoliw
+	} = useQuery(GET_PROPERTY, {
+		fetchPolicy: 'cache-and-network', // data yangi bolsa =>cacheni ham viewni ham yangiledi
+		variables: { input: propertyId }, // POSTMANdagi input
+		skip: !propertyId, // propertyId bo`lmasa GraphQL api ni skip qivor, bajarma
+		notifyOnNetworkStatusChange: true, // by default: false. datalar qayta update bo`lganda iwga tuwadi
+		onCompleted: (data: T) => {
+			/* property qiymatini tawkillaymiz */
+			if (data?.getProperty) setProperty(data?.getProperty);
+			if (data?.getProperty) setSlideImage(data?.getProperty?.propertyImages[0]);
+		},
+	});
+
+	/** same location properties list */
+	const {
+		loading: getPropertiesLoading, // Backendan data kelayotganda Loading... animation korsatadi
+		data: getPropertiesData, // datalarni cache saqlayapmiz
+		error: getPropertiesError, // data kiriwida error bo`lsa => 41-satr handle | data kirsa "onCompleted" iwga tuwadi
+		refetch: getPropertiesRefetch, // ohirgi ma`lumotni Backenddan talab qivoliw
+	} = useQuery(GET_PROPERTIES, {
+		fetchPolicy: 'cache-and-network', // data yangi bolsa =>cacheni ham viewni ham yangiledi
+		variables: {
+			input: {
+				page: 1,
+				limit: 4,
+				sort: 'createdAt',
+				direction: Direction.DESC,
+				search: {
+					locationList: [property?.propertyLocation],
+				},
+			},
+		}, // POSTMANdagi input
+		skip: !propertyId && !property, // GraphQL apini amalga owirma
+		notifyOnNetworkStatusChange: true, // by default: false. datalar qayta update bo`lganda iwga tuwadi
+		onCompleted: (data: T) => {
+			if (data?.getProperties?.list) setDestinationProperties(data?.getProperties?.list);
+		},
+	});
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -487,7 +532,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 								</Stack>
 							</Stack>
 						</Stack>
-						{destinationProperty.length !== 0 && (
+						{destinationProperties.length !== 0 && (
 							<Stack className={'similar-properties-config'}>
 								<Stack className={'title-pagination-box'}>
 									<Stack className={'title-box'}>
@@ -514,7 +559,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 											el: '.swiper-similar-pagination',
 										}}
 									>
-										{destinationProperty.map((property: Property) => {
+										{destinationProperties.map((property: Property) => {
 											return (
 												<SwiperSlide className={'similar-homes-slide'} key={property.propertyTitle}>
 													<PropertyBigCard property={property} key={property?._id} />
