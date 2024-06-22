@@ -12,12 +12,13 @@ import { userVar } from '../../../apollo/store';
 
 interface AgentCardProps {
 	agent: any;
+	likeMemberHandler: any; //talab etilgan ma`lumot
 }
 
 const AgentCard = (props: AgentCardProps) => {
-	const { agent } = props;
+	const { agent, likeMemberHandler } = props;
 	const device = useDeviceDetect();
-	const user = useReactiveVar(userVar);
+	const user = useReactiveVar(userVar); // Auth member bo`lsak userVar dan member qiymatlarii olinadi
 	const imagePath: string = agent?.memberImage
 		? `${REACT_APP_API_URL}/${agent?.memberImage}`
 		: '/img/profile/defaultUser.svg';
@@ -64,7 +65,7 @@ const AgentCard = (props: AgentCardProps) => {
 							<RemoveRedEyeIcon />
 						</IconButton>
 						<Typography className="view-cnt">{agent?.memberViews}</Typography>
-						<IconButton color={'default'}>
+						<IconButton color={'default'} onClick={() => likeMemberHandler(user, agent?._id)}>
 							{agent?.meLiked && agent?.meLiked[0]?.myFavorite ? (
 								<FavoriteIcon color={'primary'} />
 							) : (

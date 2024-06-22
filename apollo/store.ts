@@ -7,6 +7,7 @@ import { makeVar } from '@apollo/client';
 import { CustomJwtPayload } from '../libs/types/customJwtPayload';
 export const themeVar = makeVar({});
 
+/**Auth member signup & login process da kk bo`lgan qiymatlar */
 export const userVar = makeVar<CustomJwtPayload>({
 	_id: '',
 	memberType: '',

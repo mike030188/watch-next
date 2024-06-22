@@ -9,6 +9,13 @@ import AgentCard from '../../libs/components/common/AgentCard';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Member } from '../../libs/types/member/member';
+import { GET_AGENTS } from '../../apollo/user/query';
+import { useMutation, useQuery } from '@apollo/client';
+import { T } from '../../libs/types/common';
+import { LIKE_TARGET_MEMBER } from '../../apollo/user/mutation';
+import { Message } from '../../libs/enums/common.enum';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+import { Messages } from '../../libs/config';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -32,6 +39,23 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 	const [searchText, setSearchText] = useState<string>('');
 
 	/** APOLLO REQUESTS **/
+	const [likeTargetMember] = useMutation(LIKE_TARGET_MEMBER);
+
+	const {
+		loading: getAgentsLoading, // Backendan data kelayotganda Loading... animation korsatadi
+		data: getAgentsData, // datalarni cache saqlayapmiz
+		error: getAgentsError, // data kiriwida error bo`lsa => handle | data kirsa "onCompleted" iwga tuwadi
+		refetch: getAgentsRefetch, // ohirgi ma`lumotni Backenddan talab qivoliw
+	} = useQuery(GET_AGENTS, {
+		fetchPolicy: 'network-only', // faqat-serverdan data olib keladi va kewlab ham beradi
+		variables: { input: searchFilter }, //
+		notifyOnNetworkStatusChange: true, // by default: false. datalar qayta update bo`lganda iwga tuwadi
+		onCompleted: (data: T) => {
+			setAgents(data?.getAgents?.list);
+			setTotal(data?.getAgents?.metaCounter[0]?.total);
+		},
+	});
+
 	/** LIFECYCLES **/
 	useEffect(() => {
 		if (router.query.input) {
@@ -83,6 +107,25 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 			scroll: false,
 		});
 		setCurrentPage(value);
+	};
+
+	/**                                user->Auth bolganmi?, qaysi agent ga like bosyapti? */
+	const likeMemberHandler = async (user: any, id: string) => {
+		try {
+			if (!id) return;
+			if (!user._id) throw new Error(Messages.error2); // Plz login first
+			//execute likeTargetMember  Mutationni ishga tushirish
+			/**(qaysi memberga like bosmoqchimiz) **/
+			await likeTargetMember({ variables: { input: id } }); // POSTMANdagi variable=> input: id
+			//execute getAgentsRefetch
+			/**Ohirgi qiymatlarni qayta chaqiriw */
+			await getAgentsRefetch({ input: searchFilter }); // likedan keyin Agents listni to`liq refetch qilamiz
+
+			await sweetTopSmallSuccessAlert('success', 800);
+		} catch (err: any) {
+			console.log('ERROR,likeMemberHandler:', err.message);
+			sweetMixinErrorAlert(err.message).then();
+		}
 	};
 
 	if (device === 'mobile') {
@@ -139,7 +182,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 							</div>
 						) : (
 							agents.map((agent: Member) => {
-								return <AgentCard agent={agent} key={agent._id} />;
+								return <AgentCard agent={agent} key={agent._id} likeMemberHandler={likeMemberHandler} />;
 							})
 						)}
 					</Stack>
