@@ -14,7 +14,7 @@ import { T } from '../../types/common';
 import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
 import { Message } from '../../enums/common.enum';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
-import { likeTargetPropertyHandler } from '../../utils';
+// import { likeTargetPropertyHandler } from '../../utils';
 
 interface TrendPropertiesProps {
 	initialInput: PropertiesInquiry;
