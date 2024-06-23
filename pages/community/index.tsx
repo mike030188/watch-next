@@ -42,7 +42,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 		error: getBoardArticlesError, // data kiriwida error bo`lsa => handle | data kirsa "onCompleted" iwga tuwadi
 		refetch: boardArticlesRefetch, // ohirgi ma`lumotni Backenddan talab qivoliw
 	} = useQuery(GET_BOARD_ARTICLES, {
-		fetchPolicy: 'cache-and-network', // faqat-serverdan data olib keladi va kewlab ham beradi
+		fetchPolicy: 'cache-and-network', //
 		variables: { input: searchCommunity }, //
 		notifyOnNetworkStatusChange: true, // by default: false. datalar qayta update bo`lganda iwga tuwadi
 		onCompleted: (data: T) => {
