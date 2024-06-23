@@ -11,6 +11,11 @@ import { T } from '../../libs/types/common';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { BoardArticlesInquiry } from '../../libs/types/board-article/board-article.input';
 import { BoardArticleCategory } from '../../libs/enums/board-article.enum';
+import { useMutation, useQuery } from '@apollo/client';
+import { LIKE_TARGET_BOARD_ARTICLE } from '../../apollo/user/mutation';
+import { GET_BOARD_ARTICLES } from '../../apollo/user/query';
+import { Messages } from '../../libs/config';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -29,6 +34,22 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 	if (articleCategory) initialInput.search.articleCategory = articleCategory;
 
 	/** APOLLO REQUESTS **/
+	const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
+
+	const {
+		loading: boardArticlesLoading, // Backendan data kelayotganda Loading... animation korsatadi
+		data: boardArticlesData, // datalarni cache saqlayapmiz
+		error: getBoardArticlesError, // data kiriwida error bo`lsa => handle | data kirsa "onCompleted" iwga tuwadi
+		refetch: boardArticlesRefetch, // ohirgi ma`lumotni Backenddan talab qivoliw
+	} = useQuery(GET_BOARD_ARTICLES, {
+		fetchPolicy: 'cache-and-network', // faqat-serverdan data olib keladi va kewlab ham beradi
+		variables: { input: searchCommunity }, //
+		notifyOnNetworkStatusChange: true, // by default: false. datalar qayta update bo`lganda iwga tuwadi
+		onCompleted: (data: T) => {
+			setBoardArticles(data?.getBoardArticles?.list);
+			setTotalCount(data?.getBoardArticles?.metaCounter[0]?.total);
+		},
+	});
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -60,6 +81,26 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 
 	const paginationHandler = (e: T, value: number) => {
 		setSearchCommunity({ ...searchCommunity, page: value });
+	};
+
+	/**                                user->Auth bolganmi?, qaysi agent ga like bosyapti? */
+	const likeArticleHandler = async (e: T, user: any, id: string) => {
+		try {
+			e.stopPropagation();
+			if (!id) return;
+			if (!user._id) throw new Error(Messages.error2); // Plz login first
+			//execute likeTargetBoardArticles  Mutationni ishga tushirish
+			/**(qaysi article like bosmoqchimiz) **/
+			await likeTargetBoardArticle({ variables: { input: id } }); // POSTMANdagi variable=> input: id
+			//execute boardArticlesRefetch
+			/**Ohirgi qiymatlarni qayta chaqiriw */
+			await boardArticlesRefetch({ input: searchCommunity }); // likedan keyin Articles listni to`liq refetch qilamiz
+
+			await sweetTopSmallSuccessAlert('success', 800);
+		} catch (err: any) {
+			console.log('ERROR,likeArticleHandler:', err.message);
+			sweetMixinErrorAlert(err.message).then();
+		}
 	};
 
 	if (device === 'mobile') {
@@ -136,7 +177,13 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 										<Stack className="list-box">
 											{totalCount ? (
 												boardArticles?.map((boardArticle: BoardArticle) => {
-													return <CommunityCard boardArticle={boardArticle} key={boardArticle?._id} />;
+													return (
+														<CommunityCard
+															boardArticle={boardArticle}
+															key={boardArticle?._id}
+															likeArticleHandler={likeArticleHandler}
+														/>
+													);
 												})
 											) : (
 												<Stack className={'no-data'}>
@@ -150,7 +197,13 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 										<Stack className="list-box">
 											{totalCount ? (
 												boardArticles?.map((boardArticle: BoardArticle) => {
-													return <CommunityCard boardArticle={boardArticle} key={boardArticle?._id} />;
+													return (
+														<CommunityCard
+															boardArticle={boardArticle}
+															key={boardArticle?._id}
+															likeArticleHandler={likeArticleHandler}
+														/>
+													);
 												})
 											) : (
 												<Stack className={'no-data'}>
@@ -164,7 +217,13 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 										<Stack className="list-box">
 											{totalCount ? (
 												boardArticles?.map((boardArticle: BoardArticle) => {
-													return <CommunityCard boardArticle={boardArticle} key={boardArticle?._id} />;
+													return (
+														<CommunityCard
+															boardArticle={boardArticle}
+															key={boardArticle?._id}
+															likeArticleHandler={likeArticleHandler}
+														/>
+													);
 												})
 											) : (
 												<Stack className={'no-data'}>
@@ -178,7 +237,13 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 										<Stack className="list-box">
 											{totalCount ? (
 												boardArticles?.map((boardArticle: BoardArticle) => {
-													return <CommunityCard boardArticle={boardArticle} key={boardArticle?._id} />;
+													return (
+														<CommunityCard
+															boardArticle={boardArticle}
+															key={boardArticle?._id}
+															likeArticleHandler={likeArticleHandler}
+														/>
+													);
 												})
 											) : (
 												<Stack className={'no-data'}>
