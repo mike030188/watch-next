@@ -7,6 +7,11 @@ import CommunityCard from '../common/CommunityCard';
 import { T } from '../../types/common';
 import { BoardArticle } from '../../types/board-article/board-article';
 import { BoardArticlesInquiry } from '../../types/board-article/board-article.input';
+import { useMutation, useQuery } from '@apollo/client';
+import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
+import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
+import { Messages } from '../../config';
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 
 const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 	const device = useDeviceDetect();
@@ -17,6 +22,22 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 	const [memberBoArticles, setMemberBoArticles] = useState<BoardArticle[]>([]);
 
 	/** APOLLO REQUESTS **/
+	const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
+
+	const {
+		loading: boardArticlesLoading, // Backendan data kelayotganda Loading... animation korsatadi
+		data: boardArticlesData, // datalarni cache saqlayapmiz
+		error: getBoardArticlesError, // data kiriwida error bo`lsa => handle | data kirsa "onCompleted" iwga tuwadi
+		refetch: boardArticlesRefetch, // ohirgi ma`lumotni Backenddan talab qivoliw
+	} = useQuery(GET_BOARD_ARTICLES, {
+		fetchPolicy: 'network-only', // serverdan ohirgi ma`lumotni oliw
+		variables: { input: searchFilter }, //
+		notifyOnNetworkStatusChange: true, // by default: false. datalar qayta update bo`lganda iwga tuwadi
+		onCompleted: (data: T) => {
+			setMemberBoArticles(data?.getBoardArticles?.list);
+			setTotal(data?.getBoardArticles?.metaCounter[0]?.total || 0);
+		},
+	});
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -26,6 +47,26 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 	/** HANDLERS **/
 	const paginationHandler = (e: T, value: number) => {
 		setSearchFilter({ ...searchFilter, page: value });
+	};
+
+	/**                                user->Auth bolganmi?, qaysi agent ga like bosyapti? */
+	const likeArticleHandler = async (e: T, user: any, id: string) => {
+		try {
+			e.stopPropagation();
+			if (!id) return;
+			if (!user._id) throw new Error(Messages.error2); // Plz login first
+			//execute likeTargetBoardArticles  Mutationni ishga tushirish
+			/**(qaysi article like bosmoqchimiz) **/
+			await likeTargetBoardArticle({ variables: { input: id } }); // POSTMANdagi variable=> input: id
+			//execute boardArticlesRefetch
+			/**Ohirgi qiymatlarni qayta chaqiriw */
+			await boardArticlesRefetch({ input: searchFilter }); // likedan keyin Articles listni to`liq refetch qilamiz
+
+			await sweetTopSmallSuccessAlert('success', 800);
+		} catch (err: any) {
+			console.log('ERROR,likeArticleHandler:', err.message);
+			sweetMixinErrorAlert(err.message).then();
+		}
 	};
 
 	if (device === 'mobile') {
@@ -46,7 +87,14 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 						</div>
 					)}
 					{memberBoArticles?.map((boardArticle: BoardArticle) => {
-						return <CommunityCard boardArticle={boardArticle} key={boardArticle?._id} size={'small'} />;
+						return (
+							<CommunityCard
+								boardArticle={boardArticle}
+								likeArticleHandler={likeArticleHandler}
+								key={boardArticle?._id}
+								size={'small'}
+							/>
+						);
 					})}
 				</Stack>
 				{memberBoArticles?.length !== 0 && (

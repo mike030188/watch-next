@@ -111,11 +111,11 @@ const TuiEditor = () => {
 		}
 	};
 
-	const doDisabledCheck = () => {
-		if (memoizedValues.articleContent === '' || memoizedValues.articleTitle === '') {
-			return true;
-		}
-	};
+	// const doDisabledCheck = () => {
+	// 	if (memoizedValues.articleContent === '' || memoizedValues.articleTitle === '') {
+	// 		return true;
+	// 	}
+	// };
 
 	return (
 		<Stack>

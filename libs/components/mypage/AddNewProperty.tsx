@@ -210,7 +210,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 								<Stack className="price-year-after-price">
 									<Typography className="title">Price</Typography>
 									<input
-										type="text"
+										type="number"
 										className="description-input"
 										placeholder={'Price'}
 										value={insertPropertyData.propertyPrice}
@@ -504,7 +504,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 								</Button>
 							) : (
 								<Button className="next-button" disabled={doDisabledCheck()} onClick={insertPropertyHandler}>
-									<Typography className="next-button-text">Save</Typography>
+									<Typography className="next-button-text">Create</Typography>
 								</Button>
 							)}
 						</Stack>
