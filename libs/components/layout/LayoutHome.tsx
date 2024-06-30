@@ -72,7 +72,11 @@ const withLayoutMain = (Component: any) => {
 							<Component {...props} />
 						</Stack>
 
-						{user?._id && <Chat />}
+						{/****** == only login user == ******/}
+						{/* {user?._id && <Chat />} */}
+
+						{/****** == any user == *******/}
+						<Chat />
 
 						<Stack id={'footer'}>
 							<Footer />
