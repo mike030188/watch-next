@@ -1,33 +1,46 @@
-import { PropertyLocation, PropertyStatus, PropertyType } from '../../enums/property.enum';
+import {
+	PropertyBrand,
+	PropertyCategory,
+	PropertyColor,
+	PropertyConnectivity,
+	PropertyLocation,
+	PropertyStatus,
+	PropertyType,
+} from '../../enums/property.enum';
 import { Direction } from '../../enums/common.enum';
 
 export interface PropertyInput {
 	propertyType: PropertyType;
+	propertyBrand: PropertyBrand;
+	propertyCategory: PropertyCategory;
 	propertyLocation: PropertyLocation;
 	propertyAddress: string;
-	propertyTitle: string;
+	propertyModel: string;
 	propertyPrice: number;
-	propertySquare: number;
-	propertyBeds: number;
-	propertyRooms: number;
+	propertySize: number;
+	propertyColor: PropertyColor;
+	propertyConnectivity?: PropertyConnectivity;
 	propertyImages: string[];
 	propertyDesc?: string;
 	propertyBarter?: boolean;
 	propertyRent?: boolean;
 	memberId?: string;
-	constructedAt?: Date;
+	manufacturedAt?: Date;
 }
 
 interface PISearch {
 	memberId?: string;
 	locationList?: PropertyLocation[];
 	typeList?: PropertyType[];
-	roomsList?: Number[];
+	brandsList?: PropertyBrand[];
 	options?: string[];
-	bedsList?: Number[];
+	categoriesList?: PropertyCategory[];
+	modelList?: string[];
+	colorsList?: PropertyColor[];
+	connectivitiesList?: PropertyConnectivity[];
 	pricesRange?: Range;
 	periodsRange?: PeriodsRange;
-	squaresRange?: Range;
+	sizesList?: Number[];
 	text?: string;
 }
 

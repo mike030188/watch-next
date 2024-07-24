@@ -60,7 +60,7 @@ const PropertyCard = (props: PropertyCardType) => {
 									query: { id: property?._id },
 								}}
 							>
-								<Typography>{property.propertyTitle}</Typography>
+								<Typography>{property.propertyBrand}</Typography>
 							</Link>
 						</Stack>
 						<Stack className="address">
@@ -71,13 +71,14 @@ const PropertyCard = (props: PropertyCardType) => {
 					</Stack>
 					<Stack className="options">
 						<Stack className="option">
-							<img src="/img/icons/bed.svg" alt="" /> <Typography>{property.propertyBeds} bed</Typography>
+							<Typography>{property.propertyType}, </Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/room.svg" alt="" /> <Typography>{property.propertyRooms} room</Typography>
+							<Typography>{property.propertyColor}, </Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/expand.svg" alt="" /> <Typography>{property.propertySquare} m2</Typography>
+							<img src="/img/icons/handwatch.svg" alt="" width="15px" height="25px" />{' '}
+							<Typography>{property.propertySize} mm</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="divider"></Stack>

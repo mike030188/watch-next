@@ -87,14 +87,16 @@ export const GET_PROPERTY = gql`
 		getProperty(propertyId: $input) {
 			_id
 			propertyType
+			propertyBrand
+			propertyCategory
 			propertyStatus
 			propertyLocation
 			propertyAddress
-			propertyTitle
+			propertyModel
 			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
+			propertySize
+			propertyColor
+			propertyConnectivity
 			propertyViews
 			propertyLikes
 			propertyImages
@@ -104,7 +106,7 @@ export const GET_PROPERTY = gql`
 			memberId
 			soldAt
 			deletedAt
-			constructedAt
+			manufacturedAt
 			createdAt
 			updatedAt
 			memberData {
@@ -143,14 +145,16 @@ export const GET_PROPERTIES = gql`
 			list {
 				_id
 				propertyType
+				propertyBrand
+				propertyCategory
 				propertyStatus
 				propertyLocation
 				propertyAddress
-				propertyTitle
+				propertyModel
 				propertyPrice
-				propertySquare
-				propertyBeds
-				propertyRooms
+				propertySize
+				propertyColor
+				propertyConnectivity
 				propertyViews
 				propertyLikes
 				propertyRank
@@ -161,7 +165,7 @@ export const GET_PROPERTIES = gql`
 				memberId
 				soldAt
 				deletedAt
-				constructedAt
+				manufacturedAt
 				createdAt
 				updatedAt
 				memberData {
@@ -205,14 +209,16 @@ export const GET_AGENT_PROPERTIES = gql`
 			list {
 				_id
 				propertyType
+				propertyBrand
+				propertyCategory
 				propertyStatus
 				propertyLocation
 				propertyAddress
-				propertyTitle
+				propertyModel
 				propertyPrice
-				propertySquare
-				propertyBeds
-				propertyRooms
+				propertySize
+				propertyColor
+				propertyConnectivity
 				propertyViews
 				propertyLikes
 				propertyImages
@@ -222,7 +228,7 @@ export const GET_AGENT_PROPERTIES = gql`
 				memberId
 				soldAt
 				deletedAt
-				constructedAt
+				manufacturedAt
 				createdAt
 				updatedAt
 			}
@@ -239,14 +245,16 @@ export const GET_FAVORITES = gql`
 			list {
 				_id
 				propertyType
+				propertyBrand
+				propertyCategory
 				propertyStatus
 				propertyLocation
 				propertyAddress
-				propertyTitle
+				propertyModel
 				propertyPrice
-				propertySquare
-				propertyBeds
-				propertyRooms
+				propertySize
+				propertyColor
+				propertyConnectivity
 				propertyViews
 				propertyLikes
 				propertyComments
@@ -258,7 +266,7 @@ export const GET_FAVORITES = gql`
 				memberId
 				soldAt
 				deletedAt
-				constructedAt
+				manufacturedAt
 				createdAt
 				updatedAt
 				memberData {
@@ -302,14 +310,16 @@ export const GET_VISITED = gql`
 			list {
 				_id
 				propertyType
+				propertyBrand
+				propertyCategory
 				propertyStatus
 				propertyLocation
 				propertyAddress
-				propertyTitle
+				propertyModel
 				propertyPrice
-				propertySquare
-				propertyBeds
-				propertyRooms
+				propertySize
+				propertyColor
+				propertyConnectivity
 				propertyViews
 				propertyLikes
 				propertyComments
@@ -321,7 +331,7 @@ export const GET_VISITED = gql`
 				memberId
 				soldAt
 				deletedAt
-				constructedAt
+				manufacturedAt
 				createdAt
 				updatedAt
 				memberData {

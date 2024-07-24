@@ -57,7 +57,7 @@
 								height: 25px;
 								color: #181a20;
 								font-family: $font;
-								font-size: 15px;
+								font-size: 18px;
 								font-style: normal;
 								font-weight: 600;
 								line-height: normal;
@@ -65,12 +65,13 @@
 							.title {
 								width: auto;
 								height: auto;
-								color: #181a20;
+								color: #daa520;
 								font-family: $font;
-								font-size: 14px;
+								font-size: 16px;
 								font-style: normal;
 								font-weight: 600;
 								line-height: normal;
+								border-bottom: 1px solid #181a20;
 							}
 							.input-box {
 								position: relative;
@@ -153,6 +154,30 @@
 								font-weight: 400;
 								line-height: 19px;
 							}
+							.property-brand {
+								color: #181a20;
+								font-family: $font;
+								font-size: 14px;
+								font-style: normal;
+								font-weight: 400;
+								line-height: 19px;
+							}
+							.property-category {
+								color: #181a20;
+								font-family: $font;
+								font-size: 14px;
+								font-style: normal;
+								font-weight: 400;
+								line-height: 19px;
+							}
+							.property-color {
+								color: #181a20;
+								font-family: $font;
+								font-size: 14px;
+								font-style: normal;
+								font-weight: 400;
+								line-height: 19px;
+							}
 							.button-group {
 								width: 100%;
 								height: 43.998px;
@@ -217,7 +242,8 @@
 							height: 413px;
 							margin-bottom: 7px;
 							border-radius: 12px;
-							background: #fff;
+							// background: #fff;
+							background: #f5fffa;
 							box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 							.top {
 								position: relative;
@@ -263,10 +289,11 @@
 									padding: 8px 15px;
 									align-items: center;
 									border-radius: 6px;
-									border: 1px solid rgba(255, 255, 255, 0.5);
-									background: #fff;
+									// border: 1px solid rgba(255, 255, 255, 0.5);
+									// background: #fff;
+									background: #fa8072;
 									p {
-										color: #181a20;
+										color: #fff;
 										font-family: $font;
 										font-size: 15px;
 										font-style: normal;
@@ -289,7 +316,7 @@
 										height: 23px;
 										overflow: hidden;
 										p {
-											color: #181a20;
+											color: #daa520;
 											font-family: $font;
 											font-size: 15px;
 											font-style: normal;

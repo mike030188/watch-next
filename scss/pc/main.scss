@@ -175,11 +175,11 @@ body::-webkit-scrollbar {
 		position: relative;
 		width: 100%;
 		height: 860px;
-		background-image: url('/img/banner/header1.svg');
+		background-image: url('/img/banner/header1.jpg');
 		background-size: cover;
 		.container {
 			position: relative;
-			margin-top: 20px;
+			margin-top: 570px;
 			flex-direction: column;
 			align-items: center;
 			.search-box {
@@ -190,7 +190,7 @@ body::-webkit-scrollbar {
 				height: 96px;
 				display: flex;
 				flex-direction: row;
-				justify-content: space-between;
+				justify-content: space-around;
 				background: rgba(255, 255, 255, 0.28);
 				border-radius: 12px;
 				.select-box {
@@ -365,7 +365,7 @@ body::-webkit-scrollbar {
 						}
 					}
 				}
-				.filter-rooms {
+				.filter-brands {
 					position: absolute;
 					padding: 10px 92px;
 					width: 1094px;
@@ -375,11 +375,13 @@ body::-webkit-scrollbar {
 					right: 0px;
 					display: flex;
 					flex-direction: row;
+					flex-wrap: wrap;
+					gap: 40px;
 					justify-content: space-between;
 					align-items: center;
 					visibility: hidden;
 					border-radius: 12px;
-					background: #fff;
+					// background: #fff;
 					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 					box-sizing: border-box;
 					z-index: 1;
@@ -392,7 +394,7 @@ body::-webkit-scrollbar {
 						display: flex;
 						align-items: center;
 						padding: 10px 30px;
-						border: 1px solid #fffdfd;
+						border: 1px solid #181a20;
 						color: #181a20;
 						font-family: $font;
 						font-size: 20px;
@@ -402,7 +404,7 @@ body::-webkit-scrollbar {
 						cursor: pointer;
 						&:hover {
 							border-radius: 5px;
-							border: 1px solid #b9b9b9;
+							border: 1px solid #181a20;
 							box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 						}
 					}
@@ -661,7 +663,7 @@ body::-webkit-scrollbar {
 		height: auto;
 		display: flex;
 		flex-direction: row;
-		background: #181a20;
+		background: #2f4f4f;
 		.footer-container {
 			width: 1300px;
 			height: auto;
@@ -679,8 +681,8 @@ body::-webkit-scrollbar {
 						display: flex;
 						flex-direction: column;
 						.logo {
-							width: 128px;
-							height: 52px;
+							width: 150px;
+							// height: 52px;
 							cursor: pointer;
 						}
 						span {

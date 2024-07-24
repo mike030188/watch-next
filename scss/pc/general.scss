@@ -44,8 +44,8 @@
 			left: 20px;
 			bottom: 20px;
 			border-radius: 6px;
-			background: #fff;
-			color: #181a20;
+			background: #fa8072;
+			color: #fff;
 			font-family: $font;
 			font-size: 15px;
 			font-style: normal;
@@ -61,10 +61,11 @@
 		border-radius: 0px 0px 12px 12px;
 		border: 1px solid #ddd;
 		border-top: none;
-		background: #fff;
+		// background: #fff;
+		background: #f5fffa;
 		.title {
 			overflow: hidden;
-			color: #181a20;
+			color: #daa520;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			font-family: $font;
