@@ -10,6 +10,8 @@ import TopProperties from '../libs/components/homepage/TopProperties';
 import { Stack } from '@mui/material';
 import Advertisement from '../libs/components/homepage/Advertisement';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Welcome from '../libs/components/homepage/Welcome';
+import AnytimeWrap from '../libs/components/homepage/Anytime';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -23,9 +25,11 @@ const Home: NextPage = () => {
 	if (device === 'mobile') {
 		return (
 			<Stack className={'home-page'}>
+				<Welcome />
 				<TrendProperties />
 				<PopularProperties />
 				<Advertisement />
+				<AnytimeWrap />
 				<TopProperties />
 				<TopAgents />
 			</Stack>
@@ -33,9 +37,11 @@ const Home: NextPage = () => {
 	} else {
 		return (
 			<Stack className={'home-page'}>
+				<Welcome />
 				<TrendProperties />
 				<PopularProperties />
 				<Advertisement />
+				<AnytimeWrap />
 				<TopProperties />
 				<TopAgents />
 				<Events />

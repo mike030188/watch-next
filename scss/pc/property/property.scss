@@ -243,7 +243,9 @@
 							margin-bottom: 7px;
 							border-radius: 12px;
 							// background: #fff;
-							background: #f5fffa;
+							background-color: rgba(230, 228, 228, 0.8); // Silver color with transparency
+							backdrop-filter: blur(10px); // Apply blur effect to the background
+							opacity: 0.9;
 							box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 							.top {
 								position: relative;
@@ -292,6 +294,7 @@
 									// border: 1px solid rgba(255, 255, 255, 0.5);
 									// background: #fff;
 									background: #fa8072;
+									clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 									p {
 										color: #fff;
 										font-family: $font;

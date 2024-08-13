@@ -7,32 +7,36 @@ const Advertisement = () => {
 
 	if (device == 'mobile') {
 		return (
-			<Stack className={'video-frame'}>
-				<video
-					autoPlay
-					muted
-					loop
-					playsInline
-					preload="auto"
-					style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-				>
-					<source src="/video/ads1.mp4" type="video/mp4" />
-				</video>
+			<Stack className={'container'}>
+				<Stack className={'video-frame'}>
+					<video
+						autoPlay
+						muted
+						loop
+						playsInline
+						preload="auto"
+						style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+					>
+						<source src="/video/ads1.mp4" type="video/mp4" />
+					</video>
+				</Stack>
 			</Stack>
 		);
 	} else {
 		return (
-			<Stack className={'video-frame'}>
-				<video
-					autoPlay
-					muted
-					loop
-					playsInline
-					preload="auto"
-					style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-				>
-					<source src="/video/ads1.mp4" type="video/mp4" />
-				</video>
+			<Stack className={'container'}>
+				<Stack className={'video-frame'}>
+					<video
+						autoPlay
+						muted
+						loop
+						playsInline
+						preload="auto"
+						style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+					>
+						<source src="/video/ads1.mp4" type="video/mp4" />
+					</video>
+				</Stack>
 			</Stack>
 		);
 	}

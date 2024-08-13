@@ -41,21 +41,21 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(property._id)}>
-						{property?.propertyTitle}
+						{property?.propertyModel}
 					</strong>
 					<p className={'desc'}>{property?.propertyAddress}</p>
 					<div className={'options'}>
 						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
+							<img src="/img/icons/category.svg" alt="" />
+							<span>{property.propertyCategory}</span>
 						</div>
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<img src="/img/icons/color.svg" alt="" />
+							<span>{property.propertyColor}</span>
 						</div>
 						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySize} m2</span>
+							<img src="/img/icons/wristwatch.svg" alt="" />
+							<span>{property.propertySize} mm</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
@@ -96,21 +96,21 @@ const TopPropertyCard = (props: TopPropertyCardProps) => {
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(property._id)}>
-						{property?.propertyTitle}
+						{property?.propertyModel}
 					</strong>
 					<p className={'desc'}>{property?.propertyAddress}</p>
 					<div className={'options'}>
 						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{property?.propertyBeds} bed</span>
+							<img src="/img/icons/category.svg" alt="" />
+							<span>{property.propertyCategory}</span>
 						</div>
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{property?.propertyRooms} rooms</span>
+							<img src="/img/icons/color.svg" alt="" />
+							<span>{property.propertyColor}</span>
 						</div>
 						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{property?.propertySize} m2</span>
+							<img src="/img/icons/wristwatch.svg" alt="" />
+							<span>{property.propertySize} mm</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
