@@ -157,3 +157,226 @@ export const REMOVE_COMMENT_BY_ADMIN = gql`
 		}
 	}
 `;
+
+/**************************
+ *      NOTIFICATION      *
+ *************************/
+
+export const CREATE_NOTIFICATION = gql`
+	mutation CreateNotification($input: NotificationInput!) {
+		createNotification(input: $input) {
+			_id
+			notificationType
+			notificationStatus
+			notificationGroup
+			notificationTitle
+			notificationDesc
+			authorId
+			receiverId
+			propertyId
+			articleId
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+/**************************
+ *         FAQ        *
+ *************************/
+export const CREATE_FAQ_BY_ADMIN = gql`
+	mutation CreateFaq($input: FaqInput!) {
+		createFaq(input: $input) {
+			_id
+			faqQuestion
+			faqAnswer
+			faqType
+			createdAt
+			updatedAt
+			memberData {
+				_id
+				memberType
+				memberStatus
+				memberAuthType
+				memberPhone
+				memberNick
+				memberFullName
+				memberImage
+				memberAddress
+				memberDesc
+				memberProducts
+				memberArticles
+				memberFollowings
+				memberPoints
+				memberLikes
+				memberViews
+				memberComments
+				memberRank
+				memberWarnings
+				memberBlocks
+				createdAt
+				updatedAt
+				deletedAt
+				accessToken
+			}
+		}
+	}
+`;
+export const UPDATE_FAQ_BY_ADMIN = gql`
+	mutation UpdateFaq($input: FaqUpdate!) {
+		updateFaq(input: $input) {
+			_id
+			faqQuestion
+			faqAnswer
+			faqType
+			memberData {
+				_id
+				memberType
+				memberStatus
+				memberAuthType
+				memberPhone
+				memberNick
+				memberFullName
+				memberImage
+				memberAddress
+				memberDesc
+				memberProducts
+				memberArticles
+				memberFollowings
+				memberPoints
+				memberLikes
+				memberViews
+				memberComments
+				memberRank
+				memberWarnings
+				memberBlocks
+				createdAt
+				updatedAt
+				deletedAt
+				accessToken
+			}
+		}
+	}
+`;
+export const DELETE_FAQ_BY_ADMIN = gql`
+	mutation DeleteFaq($input: String!) {
+		deleteFaq(input: $input) {
+			_id
+			faqQuestion
+			faqAnswer
+			faqType
+		}
+	}
+`;
+
+/**************************
+ *         NOTICE        *
+ *************************/
+export const CREATE_NOTICE_BY_ADMIN = gql`
+	mutation CreateNotice($input: NoticeInput!) {
+		createNotice(input: $input) {
+			_id
+			noticeType
+			noticeContent
+			noticeStatus
+			createdAt
+			updatedAt
+			memberData {
+				_id
+				memberType
+				memberStatus
+				memberAuthType
+				memberPhone
+				memberNick
+				memberFullName
+				memberImage
+				memberAddress
+				memberDesc
+				memberProducts
+				memberArticles
+				memberFollowings
+				memberPoints
+				memberLikes
+				memberViews
+				memberComments
+				memberRank
+				memberWarnings
+				memberBlocks
+				createdAt
+				updatedAt
+				deletedAt
+				accessToken
+				meLiked {
+					memberId
+					likeRefId
+					myFavorite
+				}
+				meFollowed {
+					followingId
+					followerId
+					myFollowing
+				}
+			}
+		}
+	}
+`;
+export const UPDATE_NOTICE_BY_ADMIN = gql`
+	mutation UpdateNotice($input: NoticeUpdate!) {
+		updateNotice(input: $input) {
+			_id
+			noticeType
+			noticeContent
+			noticeStatus
+			createdAt
+			updatedAt
+			memberData {
+				_id
+				memberType
+				memberStatus
+				memberAuthType
+				memberPhone
+				memberNick
+				memberFullName
+				memberImage
+				memberAddress
+				memberDesc
+				memberProducts
+				memberArticles
+				memberFollowings
+				memberPoints
+				memberLikes
+				memberViews
+				memberComments
+				memberRank
+				memberWarnings
+				memberBlocks
+				createdAt
+				updatedAt
+				deletedAt
+				accessToken
+				meLiked {
+					memberId
+					likeRefId
+					myFavorite
+				}
+				meFollowed {
+					followingId
+					followerId
+					myFollowing
+				}
+			}
+		}
+	}
+`;
+export const DELETE_NOTICE_BY_ADMIN = gql`
+	mutation DeleteNotice($input: String!) {
+		deleteNotice(input: $input) {
+			_id
+			noticeType
+			noticeContent
+			noticeStatus
+			createdAt
+			updatedAt
+		}
+	}
+`;
