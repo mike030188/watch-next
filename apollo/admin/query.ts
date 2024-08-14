@@ -203,7 +203,7 @@ export const GET_COMMENTS_BY_ADMIN = gql`
  *************************/
 
 export const GET_NOTIFICATION = gql`
-	query GetNotifications($input: NotificationsInquiry!) {
+	query GetNotifications($input: GetNotificationsInquiry!) {
 		getNotifications(input: $input) {
 			list {
 				_id
@@ -226,68 +226,10 @@ export const GET_NOTIFICATION = gql`
 	}
 `;
 
-/**************************
- *         FAQ        *
- *************************/
-export const GET_FAQS_BY_ADMIN = gql`
-	query GetFaqs($input: FaqInquiry!) {
-		getFaqs(input: $input) {
-			list {
-				_id
-				faqQuestion
-				faqAnswer
-				faqType
-				createdAt
-				updatedAt
-			}
-			metaCounter {
-				total
-			}
-		}
-	}
-`;
-export const GET_FAQ_BY_ADMIN = gql`
-	query GetFaq($input: String!) {
-		getFaq(input: $input) {
-			_id
-			faqQuestion
-			faqAnswer
-			faqType
-			memberData {
-				_id
-				memberType
-				memberStatus
-				memberAuthType
-				memberPhone
-				memberNick
-				memberFullName
-				memberImage
-				memberAddress
-				memberDesc
-				memberProducts
-				memberArticles
-				memberFollowings
-				memberPoints
-				memberLikes
-				memberViews
-				memberComments
-				memberRank
-				memberWarnings
-				memberBlocks
-				createdAt
-				updatedAt
-				deletedAt
-				accessToken
-			}
-			createdAt
-			updatedAt
-		}
-	}
-`;
+/*****************************/
+/*         NOTICE            */
+/*****************************/
 
-/**************************
- *         NOTICE        *
- *************************/
 export const GET_NOTICE_BY_ADMIN = gql`
 	query GetNotice($input: String!) {
 		getNotice(input: $input) {
@@ -308,8 +250,9 @@ export const GET_NOTICE_BY_ADMIN = gql`
 				memberImage
 				memberAddress
 				memberDesc
-				memberProducts
+				memberProperties
 				memberArticles
+				memberFollowers
 				memberFollowings
 				memberPoints
 				memberLikes
@@ -318,16 +261,17 @@ export const GET_NOTICE_BY_ADMIN = gql`
 				memberRank
 				memberWarnings
 				memberBlocks
+				deletedAt
 				createdAt
 				updatedAt
-				deletedAt
 				accessToken
 			}
 		}
 	}
 `;
+
 export const GET_NOTICES_BY_ADMIN = gql`
-	query GetNotices($input: NoticeInquiry!) {
+	query GetNotices($input: NoticeInquiryDto!) {
 		getNotices(input: $input) {
 			list {
 				_id
@@ -347,8 +291,9 @@ export const GET_NOTICES_BY_ADMIN = gql`
 					memberImage
 					memberAddress
 					memberDesc
-					memberProducts
+					memberProperties
 					memberArticles
+					memberFollowers
 					memberFollowings
 					memberPoints
 					memberLikes
@@ -357,9 +302,9 @@ export const GET_NOTICES_BY_ADMIN = gql`
 					memberRank
 					memberWarnings
 					memberBlocks
+					deletedAt
 					createdAt
 					updatedAt
-					deletedAt
 					accessToken
 				}
 			}

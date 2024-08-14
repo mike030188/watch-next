@@ -163,7 +163,7 @@ export const REMOVE_COMMENT_BY_ADMIN = gql`
  *************************/
 
 export const CREATE_NOTIFICATION = gql`
-	mutation CreateNotification($input: NotificationInput!) {
+	mutation CreateNotification($input: CreateNotificationInput!) {
 		createNotification(input: $input) {
 			_id
 			notificationType
@@ -182,15 +182,17 @@ export const CREATE_NOTIFICATION = gql`
 `;
 
 /**************************
- *         FAQ        *
+ *           FAQ          *
  *************************/
+
 export const CREATE_FAQ_BY_ADMIN = gql`
-	mutation CreateFaq($input: FaqInput!) {
+	mutation CreateFaq($input: FaqInputDto!) {
 		createFaq(input: $input) {
 			_id
 			faqQuestion
 			faqAnswer
 			faqType
+			faqStatus
 			createdAt
 			updatedAt
 			memberData {
@@ -204,8 +206,9 @@ export const CREATE_FAQ_BY_ADMIN = gql`
 				memberImage
 				memberAddress
 				memberDesc
-				memberProducts
+				memberProperties
 				memberArticles
+				memberFollowers
 				memberFollowings
 				memberPoints
 				memberLikes
@@ -214,21 +217,25 @@ export const CREATE_FAQ_BY_ADMIN = gql`
 				memberRank
 				memberWarnings
 				memberBlocks
+				deletedAt
 				createdAt
 				updatedAt
-				deletedAt
 				accessToken
 			}
 		}
 	}
 `;
+
 export const UPDATE_FAQ_BY_ADMIN = gql`
-	mutation UpdateFaq($input: FaqUpdate!) {
+	mutation UpdateFaq($input: FaqUpdateDto!) {
 		updateFaq(input: $input) {
 			_id
 			faqQuestion
 			faqAnswer
 			faqType
+			faqStatus
+			createdAt
+			updatedAt
 			memberData {
 				_id
 				memberType
@@ -240,8 +247,9 @@ export const UPDATE_FAQ_BY_ADMIN = gql`
 				memberImage
 				memberAddress
 				memberDesc
-				memberProducts
+				memberProperties
 				memberArticles
+				memberFollowers
 				memberFollowings
 				memberPoints
 				memberLikes
@@ -250,14 +258,15 @@ export const UPDATE_FAQ_BY_ADMIN = gql`
 				memberRank
 				memberWarnings
 				memberBlocks
+				deletedAt
 				createdAt
 				updatedAt
-				deletedAt
 				accessToken
 			}
 		}
 	}
 `;
+
 export const DELETE_FAQ_BY_ADMIN = gql`
 	mutation DeleteFaq($input: String!) {
 		deleteFaq(input: $input) {
@@ -265,15 +274,18 @@ export const DELETE_FAQ_BY_ADMIN = gql`
 			faqQuestion
 			faqAnswer
 			faqType
+			faqStatus
+			createdAt
+			updatedAt
 		}
 	}
 `;
 
 /**************************
- *         NOTICE        *
+ *         NOTICE          *
  *************************/
 export const CREATE_NOTICE_BY_ADMIN = gql`
-	mutation CreateNotice($input: NoticeInput!) {
+	mutation CreateNotice($input: NoticeInputDto!) {
 		createNotice(input: $input) {
 			_id
 			noticeType
@@ -292,8 +304,9 @@ export const CREATE_NOTICE_BY_ADMIN = gql`
 				memberImage
 				memberAddress
 				memberDesc
-				memberProducts
+				memberProperties
 				memberArticles
+				memberFollowers
 				memberFollowings
 				memberPoints
 				memberLikes
@@ -302,9 +315,9 @@ export const CREATE_NOTICE_BY_ADMIN = gql`
 				memberRank
 				memberWarnings
 				memberBlocks
+				deletedAt
 				createdAt
 				updatedAt
-				deletedAt
 				accessToken
 				meLiked {
 					memberId
@@ -320,8 +333,9 @@ export const CREATE_NOTICE_BY_ADMIN = gql`
 		}
 	}
 `;
+
 export const UPDATE_NOTICE_BY_ADMIN = gql`
-	mutation UpdateNotice($input: NoticeUpdate!) {
+	mutation UpdateNotice($input: NoticeUpdateDto!) {
 		updateNotice(input: $input) {
 			_id
 			noticeType
@@ -340,8 +354,9 @@ export const UPDATE_NOTICE_BY_ADMIN = gql`
 				memberImage
 				memberAddress
 				memberDesc
-				memberProducts
+				memberProperties
 				memberArticles
+				memberFollowers
 				memberFollowings
 				memberPoints
 				memberLikes
@@ -350,9 +365,9 @@ export const UPDATE_NOTICE_BY_ADMIN = gql`
 				memberRank
 				memberWarnings
 				memberBlocks
+				deletedAt
 				createdAt
 				updatedAt
-				deletedAt
 				accessToken
 				meLiked {
 					memberId
@@ -368,6 +383,7 @@ export const UPDATE_NOTICE_BY_ADMIN = gql`
 		}
 	}
 `;
+
 export const DELETE_NOTICE_BY_ADMIN = gql`
 	mutation DeleteNotice($input: String!) {
 		deleteNotice(input: $input) {
