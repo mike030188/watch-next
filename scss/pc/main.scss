@@ -86,6 +86,11 @@ body::-webkit-scrollbar {
 							font-weight: 600;
 							line-height: normal;
 							cursor: pointer;
+							&:hover {
+								color: #ffcc00; // Change to your desired hover color
+								border-bottom: 2px solid #ffcc00;
+							}
+
 							.community_menu {
 								position: absolute;
 								left: -177%;

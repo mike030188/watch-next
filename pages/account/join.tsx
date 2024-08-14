@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { logIn, signUp } from '../../libs/auth';
 import { sweetMixinErrorAlert } from '../../libs/sweetAlert';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Font Awesome icons
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -19,6 +20,11 @@ const Join: NextPage = () => {
 	const device = useDeviceDetect();
 	const [input, setInput] = useState({ nick: '', password: '', phone: '', type: 'USER' });
 	const [loginView, setLoginView] = useState<boolean>(true);
+	const [passwordVisible, setPasswordVisible] = useState(false);
+
+	const togglePasswordVisibility = () => {
+		setPasswordVisible(!passwordVisible);
+	};
 
 	/** HANDLERS **/
 	const viewChangeHandler = (state: boolean) => {
@@ -96,16 +102,32 @@ const Join: NextPage = () => {
 								</div>
 								<div className={'input-box'}>
 									<span>Password</span>
-									<input
-										type="text"
-										placeholder={'Enter Password'}
-										onChange={(e) => handleInput('password', e.target.value)}
-										required={true}
-										onKeyDown={(event) => {
-											if (event.key == 'Enter' && loginView) doLogin();
-											if (event.key == 'Enter' && !loginView) doSignUp();
-										}}
-									/>
+									<div style={{ display: 'flex', alignItems: 'center' }}>
+										<input
+											type={passwordVisible ? 'text' : 'password'}
+											placeholder={'Enter Password'}
+											onChange={(e) => handleInput('password', e.target.value)}
+											required={true}
+											onKeyDown={(event) => {
+												if (event.key === 'Enter' && loginView) doLogin();
+												if (event.key === 'Enter' && !loginView) doSignUp();
+											}}
+										/>
+										<button
+											type="button"
+											onClick={togglePasswordVisibility}
+											style={{
+												fontSize: '18px',
+												color: 'grey',
+												background: 'none',
+												border: 'none',
+												cursor: 'pointer',
+												marginLeft: '-35px',
+											}}
+										>
+											{passwordVisible ? <FaEyeSlash /> : <FaEye />}
+										</button>
+									</div>
 								</div>
 								{!loginView && (
 									<div className={'input-box'}>

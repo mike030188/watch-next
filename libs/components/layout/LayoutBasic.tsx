@@ -41,7 +41,7 @@ const withLayoutBasic = (Component: any) => {
 				case '/agent/detail':
 					title = 'Agent Page';
 					desc = 'Watches / For Rent';
-					bgImage = '/img/banner/header2.svg';
+					bgImage = '/img/banner/agents.jpg';
 					break;
 				case '/mypage':
 					title = 'my page';
@@ -51,22 +51,22 @@ const withLayoutBasic = (Component: any) => {
 				case '/community':
 					title = 'Community';
 					desc = 'Watches / For Rent';
-					bgImage = '/img/banner/header2.svg';
+					bgImage = '/img/banner/community.png';
 					break;
 				case '/community/detail':
 					title = 'Community Detail';
 					desc = 'Watches / For Rent';
-					bgImage = '/img/banner/header2.svg';
+					bgImage = '/img/banner/header03.webp';
 					break;
 				case '/cs':
 					title = 'CS';
 					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/header2.svg';
+					bgImage = '/img/banner/header1.jpg';
 					break;
 				case '/account/join':
 					title = 'Login/Signup';
 					desc = 'Authentication Process';
-					bgImage = '/img/banner/header2.svg';
+					bgImage = '/img/banner/header04.webp';
 					setAuthHeader(true);
 					break;
 				case '/member':
