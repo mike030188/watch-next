@@ -211,7 +211,7 @@ body::-webkit-scrollbar {
 					justify-content: space-between;
 					.box {
 						padding: 24px 22px;
-						width: 213px;
+						width: 313px;
 						height: 56px;
 						display: flex;
 						flex-direction: row;
@@ -242,26 +242,26 @@ body::-webkit-scrollbar {
 					display: flex;
 					flex-direction: row;
 					align-items: center;
-					.advanced-filter {
-						display: flex;
-						flex-direction: row;
-						align-items: center;
-						img {
-							margin-right: 10px;
-							width: 25px;
-							height: 22px;
-							cursor: pointer;
-						}
-						span {
-							color: #fff;
-							font-family: $font;
-							font-size: 20px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
-							cursor: pointer;
-						}
-					}
+					// .advanced-filter {
+					// 	display: flex;
+					// 	flex-direction: row;
+					// 	align-items: center;
+					// 	img {
+					// 		margin-right: 10px;
+					// 		width: 25px;
+					// 		height: 22px;
+					// 		cursor: pointer;
+					// 	}
+					// 	span {
+					// 		color: #fff;
+					// 		font-family: $font;
+					// 		font-size: 20px;
+					// 		font-style: normal;
+					// 		font-weight: 600;
+					// 		line-height: normal;
+					// 		cursor: pointer;
+					// 	}
+					// }
 					.search-btn {
 						margin-left: 12px;
 						width: 62px;
@@ -270,7 +270,7 @@ body::-webkit-scrollbar {
 						align-items: center;
 						justify-content: center;
 						border-radius: 55px;
-						background: #f17742;
+						background: #98d2e9;
 						cursor: pointer;
 						svg {
 							width: 20px;
@@ -376,50 +376,50 @@ body::-webkit-scrollbar {
 						}
 					}
 				}
-				.filter-brands {
-					position: absolute;
-					padding: 10px 92px;
-					width: 1094px;
-					min-height: 120px;
-					height: auto;
-					top: 96px;
-					right: 0px;
-					display: flex;
-					flex-direction: row;
-					flex-wrap: wrap;
-					gap: 40px;
-					justify-content: space-between;
-					align-items: center;
-					visibility: hidden;
-					border-radius: 12px;
-					// background: #fff;
-					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-					box-sizing: border-box;
-					z-index: 1;
-					&.on {
-						visibility: visible;
-						transition: 0.2s ease-out;
-						background: #fffdfd;
-					}
-					span {
-						display: flex;
-						align-items: center;
-						padding: 10px 30px;
-						// border: 1px solid #181a20;
-						color: #181a20;
-						font-family: $font;
-						font-size: 20px;
-						font-style: normal;
-						font-weight: 400;
-						line-height: 26px;
-						cursor: pointer;
-						&:hover {
-							border-radius: 5px;
-							border: 1px solid #181a20;
-							box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-						}
-					}
-				}
+				// .filter-brands {
+				// 	position: absolute;
+				// 	padding: 10px 92px;
+				// 	width: 1094px;
+				// 	min-height: 120px;
+				// 	height: auto;
+				// 	top: 96px;
+				// 	right: 0px;
+				// 	display: flex;
+				// 	flex-direction: row;
+				// 	flex-wrap: wrap;
+				// 	gap: 40px;
+				// 	justify-content: space-between;
+				// 	align-items: center;
+				// 	visibility: hidden;
+				// 	border-radius: 12px;
+				// 	// background: #fff;
+				// 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+				// 	box-sizing: border-box;
+				// 	z-index: 1;
+				// 	&.on {
+				// 		visibility: visible;
+				// 		transition: 0.2s ease-out;
+				// 		background: #fffdfd;
+				// 	}
+				// 	span {
+				// 		display: flex;
+				// 		align-items: center;
+				// 		padding: 10px 30px;
+				// 		// border: 1px solid #181a20;
+				// 		color: #181a20;
+				// 		font-family: $font;
+				// 		font-size: 20px;
+				// 		font-style: normal;
+				// 		font-weight: 400;
+				// 		line-height: 26px;
+				// 		cursor: pointer;
+				// 		&:hover {
+				// 			border-radius: 5px;
+				// 			border: 1px solid #181a20;
+				// 			box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+				// 		}
+				// 	}
+				// }
 			}
 		}
 	}
@@ -656,7 +656,7 @@ body::-webkit-scrollbar {
 					border-radius: 28px;
 					border: none;
 					outline-color: #257677;
-					font-family: 'Poppins';
+					font-family: $font;
 					font-style: normal;
 					font-weight: 400;
 					font-size: 16px;

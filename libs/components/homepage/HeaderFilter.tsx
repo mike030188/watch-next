@@ -60,26 +60,13 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 
 	/** HANDLERS **/
 
-	const advancedFilterHandler = (status: boolean) => {
-		setOpenLocation(false);
-
+	const locationStateChangeHandler = (status: boolean) => {
 		setOpenType(false);
-	};
-
-	const locationStateChangeHandler = () => {
-		setOpenLocation((prev) => !prev);
-
-		setOpenType(false);
+		setOpenLocation(status);
 	};
 
 	const typeStateChangeHandler = () => {
 		setOpenType((prev) => !prev);
-		setOpenLocation(false);
-	};
-
-	const roomStateChangeHandler = () => {
-		// setOpenRooms((prev) => !prev);
-		setOpenType(false);
 		setOpenLocation(false);
 	};
 
@@ -101,7 +88,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				});
 				typeStateChangeHandler();
 			} catch (err: any) {
-				console.log('ERROR, productLocationSelectHandler:', err);
+				console.log('ERROR, propertyLocationSelectHandler:', err);
 			}
 		},
 		[searchFilter],
@@ -119,7 +106,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				});
 				disableAllStateHandler();
 			} catch (err: any) {
-				console.log('ERROR, productTypeSelectHandler:', err);
+				console.log('ERROR, propertyTypeSelectHandler:', err);
 			}
 		},
 		[searchFilter],
@@ -136,8 +123,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 			}
 
 			await router.push(
-				`/product?input=${JSON.stringify(searchFilter)}`,
-				`/product?input=${JSON.stringify(searchFilter)}`,
+				`/property?input=${JSON.stringify(searchFilter)}`,
+				`/property?input=${JSON.stringify(searchFilter)}`,
 			);
 		} catch (err: any) {
 			console.log('ERROR, pushSearchHandler:', err);
@@ -201,7 +188,12 @@ HeaderFilter.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 9,
-		search: {},
+		search: {
+			pricesRange: {
+				start: 0,
+				end: 15000,
+			},
+		},
 	},
 };
 

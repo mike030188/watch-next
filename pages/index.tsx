@@ -12,6 +12,7 @@ import Advertisement from '../libs/components/homepage/Advertisement';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Welcome from '../libs/components/homepage/Welcome';
 import AnytimeWrap from '../libs/components/homepage/Anytime';
+import BrandWrap from '../libs/components/homepage/BrandList';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -26,6 +27,7 @@ const Home: NextPage = () => {
 		return (
 			<Stack className={'home-page'}>
 				<Welcome />
+				<BrandWrap />
 				<TrendProperties />
 				<PopularProperties />
 				<Advertisement />
@@ -38,6 +40,7 @@ const Home: NextPage = () => {
 		return (
 			<Stack className={'home-page'}>
 				<Welcome />
+				<BrandWrap />
 				<TrendProperties />
 				<PopularProperties />
 				<Advertisement />

@@ -46,15 +46,15 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
 					<p className={'desc'}>{property.propertyDesc ?? 'no description'}</p>
 					<div className={'options'}>
 						<div>
-							<img src="/img/icons/bed.svg" alt="" />
+							<img src="/img/icons/category.svg" alt="" />
 							<span>{property.propertyCategory}</span>
 						</div>
 						<div>
-							<img src="/img/icons/room.svg" alt="" />
+							<img src="/img/icons/color.svg" alt="" />
 							<span>{property.propertyColor}</span>
 						</div>
 						<div>
-							<img src="/img/icons/expand.svg" alt="" />
+							<img src="/img/icons/wristwatch.svg" alt="" />
 							<span>{property.propertySize} mm</span>
 						</div>
 					</div>
