@@ -20,6 +20,12 @@ services:
 networks:
   client-network:
     driver: bridge
-# epic-rides-next: localhost:4000 <=> container:3000
-# epic-rides_api: localhost:4001 <=> container:3007
-# epic-rides_batch: localhost:4002 <=> container:3008
+# watch-next: localhost:4000 <=> container:3000
+# watches_api: localhost:4001 <=> container:8000
+# watches_batch: localhost:4002 <=> container:8001
+
+# docker compose up -d
+# docker compose stop
+# docker compose start
+# docker compose restart
+# docker compose stop && docker compose rm -f
