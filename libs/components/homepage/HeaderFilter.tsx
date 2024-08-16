@@ -60,9 +60,16 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 
 	/** HANDLERS **/
 
-	const locationStateChangeHandler = (status: boolean) => {
+	const advancedFilterHandler = (status: boolean) => {
+		setOpenLocation(false);
+
 		setOpenType(false);
-		setOpenLocation(status);
+	};
+
+	const locationStateChangeHandler = () => {
+		setOpenLocation((prev) => !prev);
+
+		setOpenType(false);
 	};
 
 	const typeStateChangeHandler = () => {
